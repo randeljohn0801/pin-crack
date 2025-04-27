@@ -37,3 +37,20 @@ def send_request(request):
         print(f"Socket error: {err}")
         return None
     return response
+
+#Verifies if the server response confirms the correct PIN.
+def check_response(response, pin_str):
+    """Analyze the server response."""
+    if response is None:
+        print(f"Failed to receive response for PIN {pin_str}")
+        return False
+    
+    decoded = response.decode(errors='ignore')
+    
+    if "Access Granted" in decoded:
+        print(f"SUCCESS! PIN: {pin_str}")
+        return True
+    else:
+        print(f"Trying PIN {pin_str}")
+        return False
+
